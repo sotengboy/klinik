@@ -18,7 +18,7 @@ require "src/views/layouts/header.php";
             <tr>
                 <td><?= $p['patient_id']; ?></td>
                 <td><?= $p['full_name']; ?></td>
-                <td><?= substr($p['address'],0,50); ?>...</td>
+                <td><?= str_word_count($p['address']) > 50 ? substr($p['address'],0,50) : $p['address']; ?>...</td>
                 <td><?= $p['medical_number']; ?></td>
                 <td>
                     <div class="form-group">
@@ -33,5 +33,6 @@ require "src/views/layouts/header.php";
 </main>
   
 <?php
+include "src/views/layouts/script.php";
 include "src/views/layouts/footer.php";
 ?>

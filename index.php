@@ -2,22 +2,30 @@
 session_start();
 require_once 'src/config/database.php';
 require_once 'src/controllers/UserController.php';
+require_once 'src/controllers/DoctorController.php';
 require_once 'src/controllers/HomeController.php';
 require_once 'src/controllers/AuthController.php';
 require_once 'src/controllers/PatientController.php';
-require_once 'src/controllers/TarifController.php';
-require_once 'src/controllers/PenggunaanController.php';
-require_once 'src/controllers/PembayaranController.php';
+require_once 'src/controllers/ServiceController.php';
+require_once 'src/controllers/MedicalController.php';
+require_once 'src/controllers/PaymentController.php';
 require_once 'src/controllers/RoleController.php';
+require_once 'src/controllers/MedicineController.php';
+require_once 'src/controllers/VitalController.php';
+require_once 'src/controllers/InspectionController.php';
 
 $userController = new UserController();
+$doctorController = new DoctorController();
 $homeController = new HomeController();
 $authController = new AuthController();
 $patientController = new PatientController();
-$tarifController = new TarifController();
-$penggunaanController = new PenggunaanController();
-$pembayaranController = new PembayaranController();
+$serviceController = new ServiceController();
+$medicalController = new MedicalController();
+$paymentController = new PaymentController();
 $roleController = new RoleController();
+$medicineController = new MedicineController();
+$vitalController = new VitalController();
+$inspectionController = new InspectionController();
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -52,6 +60,18 @@ switch ($route) {
     case 'user/delete':
         $userController->delete();
         break;
+    case 'doctor/create':
+        $doctorController->create();
+        break;
+    case 'doctor':
+        $doctorController->read();
+        break;
+    case 'doctor/update':
+        $doctorController->update();
+        break;
+    case 'doctor/delete':
+        $doctorController->delete();
+        break;
     case 'patient':
         $patientController->read();
         break;
@@ -64,17 +84,29 @@ switch ($route) {
     case 'patient/delete':
         $patientController->delete();
         break;
-    case 'tarif':
-        $tarifController->read();
+    case 'service':
+        $serviceController->read();
         break;
-    case 'tarif/create':
-        $tarifController->create();
+    case 'service/create':
+        $serviceController->create();
         break;
-    case 'tarif/update':
-        $tarifController->update();
+    case 'service/update':
+        $serviceController->update();
         break;
-    case 'tarif/delete':
-        $tarifController->delete();
+    case 'service/delete':
+        $serviceController->delete();
+        break;
+    case 'medicine/create':
+        $medicineController->create();
+        break;
+    case 'medicine':
+        $medicineController->read();
+        break;
+    case 'medicine/update':
+        $medicineController->update();
+        break;
+    case 'medicine/delete':
+        $medicineController->delete();
         break;
     case 'role':
         $roleController->read();
@@ -88,35 +120,53 @@ switch ($route) {
     case 'role/delete':
         $roleController->delete();
         break;
-    case 'penggunaan':
-        $penggunaanController->read();
+    case 'medical':
+        $medicalController->create();
         break;
-    case 'penggunaan/create':
-        $penggunaanController->create();
+    case 'medical/list':
+        $medicalController->read();
         break;
-    case 'penggunaan/update':
-        $penggunaanController->update();
+    case 'medical/detail':
+        $medicalController->detail();
         break;
-    case 'penggunaan/delete':
-        $penggunaanController->delete();
+    case 'medical/update':
+        $medicalController->update();
         break;
-    case 'penggunaan/tagihan':
-        $penggunaanController->createTagihan();
+    case 'medical/delete':
+        $medicalController->delete();
         break;
-    case 'pembayaran':
-        $pembayaranController->read();
+    case 'payment':
+        $paymentController->read();
         break;
-    case 'pembayaran/create':
-        $pembayaranController->create();
+    case 'payment/create':
+        $paymentController->create();
         break;
-    case 'pembayaran/update':
-        $pembayaranController->update();
+    case 'payment/update':
+        $paymentController->update();
         break;
-    case 'pembayaran/delete':
-        $pembayaranController->delete();
+    case 'payment/delete':
+        $paymentController->delete();
         break;
-    case 'pembayaran/tagihan':
-        $pembayaranController->createTagihan();
+    case 'payment/detail':
+        $paymentController->detail();
+        break;
+    case 'vital':
+        $vitalController->read();
+        break;
+    case 'vital/create':
+        $vitalController->create();
+        break;
+    case 'vital/update':
+        $vitalController->update();
+        break;
+    case 'inspection':
+        $inspectionController->read();
+        break;
+    case 'inspection/create':
+        $inspectionController->create();
+        break;
+    case 'inspection/update':
+        $inspectionController->update();
         break;
     default:
         $homeController->index();

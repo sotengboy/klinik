@@ -9,12 +9,12 @@ require "src/views/layouts/header.php";
         <div class="col-6">
             <h4>Rincian Tagihan</h4>
             <p>Nama Patient: <?= $tagihan['nama_patient']; ?></p>
-            <p>Bulan/Tahun Penggunaan: <?= $tagihan['bulan']; ?>/<?= $tagihan['tahun']; ?></p>
-            <p>Jumlah Penggunaan: <?= number_format($tagihan['jumlah_meter'],0,',','.'); ?></p>
+            <p>Bulan/Tahun Medical: <?= $tagihan['bulan']; ?>/<?= $tagihan['tahun']; ?></p>
+            <p>Jumlah Medical: <?= number_format($tagihan['jumlah_meter'],0,',','.'); ?></p>
             <p>Total Tagihan: Rp<?= number_format($tagihan['total_tagihan'],0,',','.'); ?></p>
             <p>Biaya Admin: Rp<?= number_format(5000,0,',','.'); ?></p>
             <p>Total yang harus dibayar: Rp<?= number_format($tagihan['total_tagihan']+5000,0,',','.'); ?></p>
-            <form method="POST" action="index.php?route=pembayaran/create">
+            <form method="POST" action="index.php?route=payment/create">
                 <input type="hidden" name="id" value="<?=$tagihan['id_tagihan'];?>">
                 <input type="hidden" name="bulan" value="<?=$tagihan['bulan'];?>">
                 <input type="hidden" name="tagihan" value="<?=$tagihan['id_tagihan'];?>">
@@ -35,5 +35,6 @@ require "src/views/layouts/header.php";
 </main>
   
 <?php
+include "src/views/layouts/script.php";
 include "src/views/layouts/footer.php";
 ?>

@@ -29,7 +29,7 @@ class User {
     }
 
     public function getUser($id) {
-        $query = "SELECT * FROM users WHERE user_id = $id";
+        $query = "SELECT * FROM users u JOIN role r ON r.role_id=u.role_id WHERE user_id = $id";
         $result = $this->conn->query($query);
         $user = $result->fetch_assoc();
 
@@ -46,7 +46,7 @@ class User {
         $this->conn->query($query);
     }
     public function getUserByUsername($username) {
-        $query = "SELECT * FROM users WHERE username = ?";
+        $query = "SELECT * FROM users JOIN role ON role.role_id=users.role WHERE username = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("s", $username);
         $stmt->execute();

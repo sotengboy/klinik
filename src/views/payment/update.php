@@ -4,11 +4,11 @@ require "src/views/layouts/header.php";
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="m-3">
-    <h1>Input Penggunaan</h1>
+    <h1>Input Medical</h1>
     <div class="row">
         <div class="col-6">
-            <form method="POST" action="index.php?route=penggunaan/update">
-                <input type="hidden" name="id" value="<?=$pg['id_penggunaan'];?>">
+            <form method="POST" action="index.php?route=medical/update">
+                <input type="hidden" name="id" value="<?=$pg['id_medical'];?>">
                 <label for="patient">Patient:</label>
                 <select name="patient" class="form-control">
                     <option value="">-- Pilih Patient --</option>
@@ -56,5 +56,6 @@ require "src/views/layouts/header.php";
 </main>
   
 <?php
+include "src/views/layouts/script.php";
 include "src/views/layouts/footer.php";
 ?>

@@ -9,8 +9,8 @@ class Role {
         $this->conn = $databaseConfig->getConnection();
     }
 
-    public function createRole($role) {
-        $query = "INSERT INTO role (role_name) VALUES ('$role')";
+    public function createRole($role, $access) {
+        $query = "INSERT INTO role (role_name, access) VALUES ('$role', '$access')";
         $this->conn->query($query);
     }
 
@@ -36,9 +36,9 @@ class Role {
         return $role;
     }
 
-    public function updateRole($roleId, $role) {
+    public function updateRole($roleId, $role, $access) {
         
-        $query = "UPDATE role SET role_name='$role' WHERE role_id=$roleId";
+        $query = "UPDATE role SET role_name='$role', access='$access' WHERE role_id=$roleId";
         $this->conn->query($query);
     }
 

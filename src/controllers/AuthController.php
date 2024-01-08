@@ -16,7 +16,9 @@ class AuthController {
             $user = $this->userModel->getUserByUsername($username);
             if ($user && $this->userModel->verifyPassword($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['user_id'];
-                $_SESSION['admin_name'] = $user['full_name'];
+                $_SESSION['user_name'] = $user['full_name'];
+                $_SESSION['user_role'] = $user['role_name'];
+                $_SESSION['user_access'] = $user['access'];
                 session_write_close();
                 echo '<meta http-equiv="refresh" content="0;url=index.php?route=home"/>';
                 return true;

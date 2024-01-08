@@ -28,7 +28,7 @@ require "src/views/layouts/header.php";
                 <label>Telepon:</label>
                 <input type="text" name="phone" class="form-control" value="<?=$patient['phone'];?>" required>
                 <label>Email:</label>
-                <input type="text" name="email" class="form-control" value="<?=$patient['email'];?>" required>
+                <input type="text" name="email" class="form-control" value="<?=$patient['email'];?>">
                 <label>Status:</label>
                 <select name="status" class="form-control">
                     <option value="">-- Pilih Status --</option>
@@ -41,7 +41,7 @@ require "src/views/layouts/header.php";
     </div>
     </div>
 </main>
-  
 <?php
+include "src/views/layouts/script.php";
 include "src/views/layouts/footer.php";
 ?>

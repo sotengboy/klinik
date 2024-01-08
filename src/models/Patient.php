@@ -28,7 +28,13 @@ class Patient {
 
         return $patient;
     }
+    public function countPatient() {
+        $query = "SELECT * FROM patients";
+        $result = $this->conn->query($query);
+        $patient = $result->num_rows;
 
+        return $patient;
+    }
     public function getPatient($id) {
         $query = "SELECT * FROM patients WHERE patient_id = $id";
         $result = $this->conn->query($query);

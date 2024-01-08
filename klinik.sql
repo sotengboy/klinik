@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 13, 2023 at 12:32 AM
+-- Generation Time: Jan 08, 2024 at 06:34 PM
 -- Server version: 5.7.31
 -- PHP Version: 8.0.30
 
@@ -35,9 +35,40 @@ CREATE TABLE `doctors` (
   `email` varchar(200) NOT NULL,
   `phone` varchar(16) NOT NULL,
   `skill` varchar(200) NOT NULL,
-  `working_hour` varchar(100) NOT NULL,
+  `working_hours` varchar(100) NOT NULL,
+  `fee` int(11) NOT NULL,
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `doctors`
+--
+
+INSERT INTO `doctors` (`doctor_id`, `full_name`, `username`, `password`, `email`, `phone`, `skill`, `working_hours`, `fee`, `status`) VALUES
+(1, 'Dokter A', 'Dokter A', '$2y$10$Ivs.nekdyBbiY5PjVimWNOXR1Cq8bg9Ti1x3ZUkmLGx36msrWqNM.', 'doktera@gmail.com', '0812323434578', 'Umum', '09.00-15.00', 300000, 'Active'),
+(2, 'Dokter B', 'dokterb', '$2y$10$YCaKZamhtzg1.A8o4cOYVO8uhCnLe9ENpEV6JYGpPKIzWTcn8Bp6S', 'dokterb@gmail.com', '0912312412', 'Umum', '09.00-15.00', 250000, 'Active');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inspections`
+--
+
+CREATE TABLE `inspections` (
+  `inspection_id` int(11) NOT NULL,
+  `medical_id` int(11) NOT NULL,
+  `doctor_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `heart_beat` varchar(20) NOT NULL,
+  `diagnosis` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `inspections`
+--
+
+INSERT INTO `inspections` (`inspection_id`, `medical_id`, `doctor_id`, `date`, `heart_beat`, `diagnosis`) VALUES
+(1, 1, 1, '2023-12-21', 'Bagus', 'Kurang Istirahat');
 
 -- --------------------------------------------------------
 
@@ -46,17 +77,27 @@ CREATE TABLE `doctors` (
 --
 
 CREATE TABLE `medical_services` (
-  `service_id` int(11) NOT NULL,
+  `medical_id` int(11) NOT NULL,
   `patient_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `doctor_id` int(11) NOT NULL,
-  `vital_id` int(11) NOT NULL,
-  `service_type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `trx_no` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` date NOT NULL,
+  `type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `complaints` text COLLATE utf8mb4_unicode_ci,
   `admin_fee` double NOT NULL,
   `subtotal` double NOT NULL,
   `status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `medical_services`
+--
+
+INSERT INTO `medical_services` (`medical_id`, `patient_id`, `user_id`, `doctor_id`, `service_id`, `trx_no`, `date`, `type`, `complaints`, `admin_fee`, `subtotal`, `status`) VALUES
+(1, 1, 1, 1, 3, 'MED-8976', '2023-12-20', 'Umum', 'pusing mual muntah lemas', 50000, 50000, 'Pending'),
+(2, 7, 1, 1, 3, 'MED-3743', '2024-01-07', 'Umum', NULL, 50000, 50000, 'Pending');
 
 -- --------------------------------------------------------
 
@@ -75,6 +116,13 @@ CREATE TABLE `medicines` (
   `type` varchar(20) NOT NULL,
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `medicines`
+--
+
+INSERT INTO `medicines` (`med_id`, `med_name`, `description`, `qty`, `unit`, `dosage`, `price`, `type`, `status`) VALUES
+(1, 'Paracetamol', 'Pereda Nyeri', 1000, 'pack', '3x sehari setelah makan', 10000, 'Tablet', 'Active');
 
 -- --------------------------------------------------------
 
@@ -100,11 +148,12 @@ CREATE TABLE `patients` (
 --
 
 INSERT INTO `patients` (`patient_id`, `full_name`, `address`, `medical_number`, `age`, `gender`, `nik`, `phone`, `email`, `status`) VALUES
-(1, 'pelanggan11', '$2y$10$liW9BZpnnBRefGxQsrxCbuRUatijbWJTJQ0SF1jwOjqwsWNH07LW.', '2212009', '23', 'Perempuan', '3175075632532', '1', '', 'Active'),
-(2, 'test', '$2y$10$f2yqCfBqZTXiblha5m20UePc7Jn3nFcTr19wJRv4BXhw1FT9b.7y2', '22120010', '45', 'Laki-laki', '3175075632532', '5', '', 'Active'),
-(4, 'pelanggan3', '$2y$10$jMxe.UP.22pO2f5mqhv1LePwJqbakKEhQy8Cqcn6iOMexhNFyJZEi', '22120011', '30', 'Perempuan', '3175075632532', '6', '', 'Active'),
-(5, 'pelanggan4', '$2y$10$yh/IWR4ApdinTg4FlprllOnuXRKq.Bs/xElz.Pky8jbVeCs87u5Gu', '22120012', '55', 'Laki-laki', '3175075632532', '5', '', 'Active'),
-(6, 'Jono', 'Jakarta Timur', '', '24', 'Laki-laki', '317591989038091', '081232343459', '-', 'Active');
+(1, 'Pasien 11', 'Jakarta Timur', '2212009', '23', 'Perempuan', '', '1', '-', 'Active'),
+(2, 'test', 'Bekasi', '22120010', '45', 'Laki-laki', '', '5', '', 'Active'),
+(4, 'pasien 3', 'Bekasi', '22120011', '30', 'Perempuan', '', '6', '', 'Active'),
+(5, 'pelanggan4', 'Kota Bekasi', '22120012', '55', 'Laki-laki', '', '5', '', 'Active'),
+(6, 'Harjo', 'Jakarta Utara', '240106333', '34', 'Laki-laki', '16', '08123456789', 'jonesjoker@gmail.com', 'Active'),
+(7, 'Yanto', 'Depok', '240106141', '40', 'Laki-laki', '31759198945566', '0821213131312', 'yanto@gmail.com', 'Active');
 
 -- --------------------------------------------------------
 
@@ -114,7 +163,9 @@ INSERT INTO `patients` (`patient_id`, `full_name`, `address`, `medical_number`, 
 
 CREATE TABLE `payments` (
   `payment_id` int(11) NOT NULL,
-  `service_id` int(11) NOT NULL,
+  `payment_number` bigint(20) NOT NULL,
+  `payment_date` date NOT NULL,
+  `medical_id` int(11) NOT NULL,
   `pres_id` int(11) NOT NULL,
   `subtotal` double NOT NULL,
   `discount` double NOT NULL,
@@ -128,9 +179,9 @@ CREATE TABLE `payments` (
 -- Dumping data for table `payments`
 --
 
-INSERT INTO `payments` (`payment_id`, `service_id`, `pres_id`, `subtotal`, `discount`, `tax`, `total`, `payment_method`, `payment_status`) VALUES
-(2, 4, 1, 20230614, 2, 5000, 500000, '1', ''),
-(3, 7, 5, 20230622, 6, 5000, 23000, '1', '');
+INSERT INTO `payments` (`payment_id`, `payment_number`, `payment_date`, `medical_id`, `pres_id`, `subtotal`, `discount`, `tax`, `total`, `payment_method`, `payment_status`) VALUES
+(2, 202312319212, '2023-12-20', 1, 1, 20230614, 2, 5000, 500000, '1', 'Pending Payment'),
+(3, 202312319222, '2023-12-21', 1, 5, 20230622, 6, 5000, 23000, '1', 'Paid');
 
 -- --------------------------------------------------------
 
@@ -140,7 +191,7 @@ INSERT INTO `payments` (`payment_id`, `service_id`, `pres_id`, `subtotal`, `disc
 
 CREATE TABLE `prescriptions` (
   `pres_id` int(11) NOT NULL,
-  `service_id` int(11) NOT NULL,
+  `medical_id` int(11) NOT NULL,
   `total_price` double NOT NULL,
   `total_qty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -149,11 +200,8 @@ CREATE TABLE `prescriptions` (
 -- Dumping data for table `prescriptions`
 --
 
-INSERT INTO `prescriptions` (`pres_id`, `service_id`, `total_price`, `total_qty`) VALUES
-(1, 450, 50, 0),
-(5, 900, 90, 0),
-(6, 1300, 130, 0),
-(7, 2200, 2200, 0);
+INSERT INTO `prescriptions` (`pres_id`, `medical_id`, `total_price`, `total_qty`) VALUES
+(9, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -178,17 +226,43 @@ CREATE TABLE `prescription_items` (
 
 CREATE TABLE `role` (
   `role_id` int(11) NOT NULL,
-  `role_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+  `role_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `access` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `role`
 --
 
-INSERT INTO `role` (`role_id`, `role_name`) VALUES
-(1, 'Administrator'),
-(2, 'User'),
-(3, 'Customer Service');
+INSERT INTO `role` (`role_id`, `role_name`, `access`) VALUES
+(1, 'Administrator', 'registration,vital,doctor,payment,pharmacy,master'),
+(2, 'User', ''),
+(3, 'Customer Service', 'registration'),
+(4, 'Perawat', 'vital'),
+(5, 'Dokter', 'doctor'),
+(6, 'Farmasi', 'Array');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `services`
+--
+
+CREATE TABLE `services` (
+  `service_id` int(11) NOT NULL,
+  `service_name` varchar(100) NOT NULL,
+  `service_desc` varchar(200) NOT NULL,
+  `service_price` int(11) NOT NULL,
+  `status` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `services`
+--
+
+INSERT INTO `services` (`service_id`, `service_name`, `service_desc`, `service_price`, `status`) VALUES
+(1, 'Periksa Gigi 1', 'Pemeriksaan Gigi', 50000, 'Active'),
+(3, 'Periksa Umum', 'Pemeriksaan Umum', 100000, 'Active');
 
 -- --------------------------------------------------------
 
@@ -212,7 +286,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `full_name`, `username`, `password`, `email`, `phone`, `role`, `status`) VALUES
-(1, 'Administrator', 'admin', '$2y$10$E64rx5OOh6DY8/4OtYuEj.gGF898ooLMOQwF3KjVeiykuc9fDLNTW', 'admin@mufadmedika.com', '', '1', 'Active'),
+(1, 'Administrator', 'admin', '$2y$10$oly2qy6MwW5PqrHCPlFuP.e/Q30PVbCu9Spa3qwRPTc.bwVNh4TWu', 'admin@mufadmedika.com', '-', '1', 'Active'),
 (3, 'User', 'user', '$2y$10$looz7y8stR7978/awHMpOea86T9wVyjSwDm1aNxAOxvf5ILuPieJm', 'user@mufadmedika.com', '', '2', 'Active');
 
 -- --------------------------------------------------------
@@ -224,11 +298,18 @@ INSERT INTO `users` (`user_id`, `full_name`, `username`, `password`, `email`, `p
 CREATE TABLE `vital_sign` (
   `vital_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `service_id` int(11) NOT NULL,
+  `medical_id` int(11) NOT NULL,
   `blood_presure` varchar(20) NOT NULL,
   `temperature` varchar(20) NOT NULL,
-  `complaints` text NOT NULL
+  `weight` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `vital_sign`
+--
+
+INSERT INTO `vital_sign` (`vital_id`, `user_id`, `medical_id`, `blood_presure`, `temperature`, `weight`) VALUES
+(1, 1, 1, '100/80', '36.7', '65');
 
 --
 -- Indexes for dumped tables
@@ -241,10 +322,16 @@ ALTER TABLE `doctors`
   ADD PRIMARY KEY (`doctor_id`);
 
 --
+-- Indexes for table `inspections`
+--
+ALTER TABLE `inspections`
+  ADD PRIMARY KEY (`inspection_id`);
+
+--
 -- Indexes for table `medical_services`
 --
 ALTER TABLE `medical_services`
-  ADD PRIMARY KEY (`service_id`);
+  ADD PRIMARY KEY (`medical_id`);
 
 --
 -- Indexes for table `medicines`
@@ -283,6 +370,12 @@ ALTER TABLE `role`
   ADD PRIMARY KEY (`role_id`);
 
 --
+-- Indexes for table `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`service_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -302,25 +395,31 @@ ALTER TABLE `vital_sign`
 -- AUTO_INCREMENT for table `doctors`
 --
 ALTER TABLE `doctors`
-  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `inspections`
+--
+ALTER TABLE `inspections`
+  MODIFY `inspection_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `medical_services`
 --
 ALTER TABLE `medical_services`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `medical_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `medicines`
 --
 ALTER TABLE `medicines`
-  MODIFY `med_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -332,7 +431,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `prescriptions`
 --
 ALTER TABLE `prescriptions`
-  MODIFY `pres_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `pres_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `prescription_items`
@@ -344,7 +443,13 @@ ALTER TABLE `prescription_items`
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `services`
+--
+ALTER TABLE `services`
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -356,7 +461,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `vital_sign`
 --
 ALTER TABLE `vital_sign`
-  MODIFY `vital_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `vital_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

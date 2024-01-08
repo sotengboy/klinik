@@ -11,14 +11,15 @@ class RoleController {
     public function create() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $role = $_POST['nama'];
+            $access = $_POST['access'];
             if (empty($role)) {
-                echo "Nama Role harus diisi.";
+                echo "<script>alert('Nama Role harus diisi.');</script>";
                 return;
             }
 
-            $this->roleModel->createRole($role);
+            $this->roleModel->createRole($role,$access);
 
-            header('Location: index.php?route=role');
+            echo "<script>alert('Data role berhasil disimpan');</script><meta http-equiv='refresh' content='0;url=index.php?route=role' />";
             exit;
         }
 
@@ -40,14 +41,15 @@ class RoleController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
             $role = $_POST['nama'];
+            $access = implode(",",$_POST['access']);
 
             if (empty($role)) {
                 echo "Please provide a role.";
                 return;
             }
-            $this->roleModel->updateRole($id, $role);
+            $this->roleModel->updateRole($id, $role, $access);
 
-            header('Location: index.php?route=role');
+            echo "<script>alert('Data role berhasil diubah');</script><meta http-equiv='refresh' content='0;url=index.php?route=role' />";
             exit;
         }
         $role = $this->roleModel->getRole($roleId);

@@ -14,6 +14,30 @@ require "src/views/layouts/header.php";
                     <input type="text" name="nama" class="form-control" value="<?= $role['role_name']; ?>" required>
                 </div>
                 <div class="form-group">
+                    <label for="nama">Hak Akses:</label>
+                    <table class="table table-sm">
+                        <tr>
+                            <td><input type="checkbox" name="access[]" value="registration" <?= str_contains($role['access'], 'registration') ? 'checked' : ''; ?> ></td>
+                            <td>Pendaftaran</td>
+                            <td><input type="checkbox" name="access[]" value="vital" <?= str_contains($role['access'], 'vital') ? 'checked' : ''; ?> ></td>
+                            <td>Pemeriksaan Vital</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="access[]" value="doctor" <?= str_contains($role['access'], 'doctor') ? 'checked' : ''; ?> ></td>
+                            <td>Pemeriksaan Dokter</td>
+                            <td><input type="checkbox" name="access[]" value="payment" <?= str_contains($role['access'], 'payment') ? 'checked' : ''; ?> ></td>
+                            <td>Pembayaran</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="access[]" value="pharmacy" <?= str_contains($role['access'], 'pharmacy') ? 'checked' : ''; ?> ></td>
+                            <td>Farmasi</td>
+                            <td><input type="checkbox" name="access[]" value="master" <?= str_contains($role['access'], 'master') ? 'checked' : ''; ?> ></td>
+                            <td>Master Data</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="form-group">
                 <input type="submit" class="btn btn-md btn-success mt-3" value="Ubah Role">
                 <a class="btn btn-md btn-secondary mt-3" href="index.php?route=role">Batal</a>
             </form>
@@ -23,5 +47,6 @@ require "src/views/layouts/header.php";
 </main>
   
 <?php
+include "src/views/layouts/script.php";
 include "src/views/layouts/footer.php";
 ?>

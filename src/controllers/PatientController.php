@@ -1,14 +1,14 @@
 <?php
 require_once 'src/models/Patient.php';
-require_once 'src/models/Tarif.php';
+require_once 'src/models/Service.php';
 
 class PatientController {
     private $patientModel;
-    private $tarifModel;
+    private $serviceModel;
 
     public function __construct() {
         $this->patientModel = new Patient();
-        $this->tarifModel = new Tarif();
+        $this->serviceModel = new Service();
     }
 
     public function create() {
@@ -22,15 +22,20 @@ class PatientController {
             $phone      = $_POST['phone'];
             $email      = $_POST['email'];
             $status     = $_POST['status'];
+            $from       = $_POST['from'];
 
-            if (empty($name) || empty($address) || empty($no_rm) || empty($age) || empty($gender) || empty($no_id) || empty($phone) || empty($email) || empty($status)) {
+            if (empty($name) || empty($address) || empty($no_rm) || empty($age) || empty($gender) || empty($no_id) || empty($phone) || empty($status)) {
                 echo "Harap isi semua kolom.";
                 return;
             }
         
             $this->patientModel->createPatient($name,$address,$no_rm,$age,$gender,$no_id,$phone,$email,$status);
-
-            header('Location: index.php?route=patient');
+            if($from == 'patient'){
+                echo "<script>alert('Data Pasien Berhasil Dibuat!');</script><meta http-equiv='refresh' content='0;url=index.php?route=patient' />";
+            }else{
+                echo "<script>alert('Data Pasien Berhasil Dibuat!');</script><meta http-equiv='refresh' content='0;url=index.php?route=medical' />";
+            }
+            // header('Location: index.php?route=patient');
             exit;
         }
         
@@ -58,7 +63,7 @@ class PatientController {
             $email      = $_POST['email'];
             $status     = $_POST['status'];
 
-            if (empty($name) || empty($address) || empty($no_rm) || empty($age) || empty($gender) || empty($no_id) || empty($phone) || empty($email) || empty($status)) {
+            if (empty($name) || empty($address) || empty($no_rm) || empty($age) || empty($gender) || empty($no_id) || empty($phone) || empty($status)) {
                 echo "Harap isi semua kolom.";
                 return;
             }
