@@ -12,7 +12,7 @@ require "src/views/layouts/header.php";
                 <th>Nama Pasien</th>
                 <th>Keluhan</th>
                 <th>Dokter</th>
-                <th>Status</th>
+                <!-- <th>Status</th> -->
                 <th>Opsi</th>
             </tr>
             <?php foreach ($medical as $p): ?>
@@ -22,7 +22,7 @@ require "src/views/layouts/header.php";
                 <td><?= $p['patient']; ?></td>
                 <td><?= $p['complaints']; ?></td>
                 <td><?= $p['doctor']; ?></td>
-                <td><?= $p['status'] ?></td>
+                <!-- <td><?= $p['status'] ?></td> -->
                 <td>
                     <div class="form-group">
                         <?php if($p['status'] == 'Vital Sign') { ?>

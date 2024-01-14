@@ -13,7 +13,7 @@ require "src/views/layouts/header.php";
                 <label class="mt-2">Alamat:</label>
                 <input type="text" name="alamat" class="form-control" required>
                 <label class="mt-2">Nomor Rekam Medik:</label>
-                <input type="text" name="no_rm" class="form-control" value="<?=date('ymd').rand(100,999);?>" required>
+                <input type="text" name="no_rm" class="form-control" value="MP<?=date('ym').rand(100,999);?>" readonly>
                 <label class="mt-2">Umur:</label>
                 <input type="text" name="umur" class="form-control" required>
                 <label class="mt-2">Jenis Kelamin:</label>

@@ -43,5 +43,6 @@ require "src/views/layouts/header.php";
 </main>
   
 <?php
+include "src/views/layouts/script.php";
 include "src/views/layouts/footer.php";
 ?>

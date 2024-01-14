@@ -7,20 +7,18 @@ require "src/views/layouts/header.php";
         <h1>Data Pemeriksaan Vital</h1>
         <table class="table table-striped table-bordered">
             <tr>
-                <th>ID</th>
+                <th>No.</th>
                 <th>Tanggal</th>
                 <th>Nama Pasien</th>
-                <th>Keluhan</th>
                 <th>Dokter</th>
                 <th>Status</th>
                 <th>Opsi</th>
             </tr>
-            <?php foreach ($medical as $p): ?>
+            <?php $i = 1; foreach ($medical as $p): ?>
             <tr>
-                <td><?= $p['medical_id']; ?></td>
+                <td><?= $i++; ?></td>
                 <td><?= $p['date']; ?></td>
                 <td><?= $p['patient']; ?></td>
-                <td><?= $p['complaints']; ?></td>
                 <td><?= $p['doctor']; ?></td>
                 <td><?= $p['status'] ?></td>
                 <td>

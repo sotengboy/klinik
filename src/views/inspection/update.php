@@ -33,25 +33,102 @@ require "src/views/layouts/header.php";
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                    <div class="col-12">
                     <h4>Pemeriksaan Dokter</h4>
                     <hr>
-                    <label for="daya">Detak Jantung:</label>
-                    <input type="text" name="heart_beat" class="form-control" value="<?= $inspec['heart_beat']; ?>">
-                    <label for="daya">Diagnosa:</label>
-                    <input type="text" name="diagnosis" class="form-control" value="<?= $inspec['diagnosis']; ?>">
+                    </div>
                 </div>
-                <div class="col-6">
-                    <h4>Resep Obat</h4>
-                    <hr>
-                    <?php
-                     if(empty($pres['pres_id'])){
-                        echo '<input type="submit" name="prescription" class="btn btn-md btn-success mt-3" value="Buat Resep">';
-                     }else{
-                        echo '<span class="btn btn-md btn-success mt-3">Tambah Obat</span>';
-                     } ?>
+                <div class="row">
+                    <div class="col-6">
+                        <label>Detak Jantung:</label>
+                        <input type="text" name="heart_beat" class="form-control" value="<?= $inspec['heart_beat']; ?>">
+                    </div>
+                    <div class="col-6">
+                        <label>Diagnosa:</label>
+                        <input type="text" name="diagnosis" class="form-control" value="<?= $inspec['diagnosis']; ?>">
+                    </div>
                 </div>
-            </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <h4>Resep Obat</h4>
+                        <hr>
+                        
+                        <button class="btn btn-md btn-success mb-2" type="button" data-bs-toggle="modal" data-bs-target="#medicineModal" id="addPayment">Tambah Obat</button>
+                        <table id="medHolder" class="table">
+                            <tr>
+                                <th>Nama Obat</th>
+                                <th>Dosis</th>
+                                <th>QTY</th>
+                                <th>Keterangan</th>
+                                <th>X</th>
+                            </tr>
+                            <tr class="d-none">
+                                <td id="labelType">
+                                    <input type="hidden" name="meds[]" id="type" value="${id}">
+                                </td>
+                                <td>
+                                    <input name="dosage[]" placeholder="" />
+                                </td>
+                                <td>
+                                <input name="qty[]" placeholder="Jumlah" />
+                                <input type="hidden" name="price[]" value="0">
+
+                                </td>
+                                <td>
+                                <input name="remark[]" placeholder="Keterangan Lain" />
+                                </td>
+                                <td style="text-align:right">
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="hidden" name="totalPrice" id="totalPrice">
+                        <input type="hidden" name="totalQty" id="totalQty">
+                        <div class="modal fade" id="medicineModal" tabindex="-1" aria-labelledby="medicineModalLabel" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="medicineModalLabel">Tambah Obat</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <input type="text" placeholder="Cari obat..." class="form-control" id="medSearch">
+                                <table class="table" id="itemTable">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nama Obat</th>
+                                            <th class="d-none">Harga</th>
+                                            <th>ID</th>
+                                            <th>Deskripsi</th>
+                                            <th>Unit</th>
+                                            <th>Tipe</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="itemList">
+                                    <?php foreach($medicines as $med): ?>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td><?= $med['med_id']; ?></td>
+                                            <td><?= $med['med_name']; ?></td>
+                                            <td class="d-none"><?= $med['price']; ?></td>
+                                            <td><?= $med['description']; ?></td>
+                                            <td><?= $med['unit']; ?></td>
+                                            <td><?= $med['type']; ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <small>Centang untuk memilih</small>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="addMed">Tambah</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
             <div class="row">
                 <div class="col-12">
                     <hr>

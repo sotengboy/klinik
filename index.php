@@ -13,6 +13,7 @@ require_once 'src/controllers/RoleController.php';
 require_once 'src/controllers/MedicineController.php';
 require_once 'src/controllers/VitalController.php';
 require_once 'src/controllers/InspectionController.php';
+require_once 'src/controllers/PharmaController.php';
 
 $userController = new UserController();
 $doctorController = new DoctorController();
@@ -26,6 +27,7 @@ $roleController = new RoleController();
 $medicineController = new MedicineController();
 $vitalController = new VitalController();
 $inspectionController = new InspectionController();
+$pharmaController = new PharmaController();
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -167,6 +169,9 @@ switch ($route) {
         break;
     case 'inspection/update':
         $inspectionController->update();
+        break;
+    case 'pharmacy':
+        $pharmaController->read();
         break;
     default:
         $homeController->index();

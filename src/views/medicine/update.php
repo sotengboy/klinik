@@ -29,13 +29,14 @@ require "src/views/layouts/header.php";
                 <input type="number" name="price" class="form-control" value="<?=$medicine['price']?>" required>
                 <label for="email">Tipe:</label>
                 <input type="text" name="type" class="form-control" value="<?=$medicine['type']?>" required>
+                <?php if($medicine['status'] != 'Infinity'): ?>
                 <label for="status">Status:</label>
                 <select name="status" class="form-control">
                     <option value="">-- Pilih Status --</option>
                     <option value="Active" <?=$medicine['status'] == "Active" ? "selected" : ""?>> Active</option>
                     <option value="Inactive" <?=$medicine['status'] == "Inactive" ? "selected" : ""?>> Inactive</option>
                 </select>
-                
+                <?php endif; ?>
                 <input type="submit" class="btn btn-md btn-success mt-3" value="Ubah Data">
                 <a href="index.php?route=medicine" class="btn btn-md btn-secondary mt-3">Batal</a>
             </form>

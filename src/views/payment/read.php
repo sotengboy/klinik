@@ -19,10 +19,7 @@ require "src/views/layouts/header.php";
             <td><?= $p['payment_number']; ?></td>
             <td><?= $p['medical_number']; ?></td>
             <td><?= $p['full_name']; ?></td>
-            <td><?= number_format($p['subtotal'],0,',','.'); ?></td>
-            <!-- <td><?= $p['bulan']; ?></td>
-            <td><?= $p['tahun']; ?></td>
-            <td>Rp<?= number_format($p['total_tagihan'], 0, ',','.'); ?></td> -->
+            <td>Rp<?= number_format($p['total'],0,',','.'); ?>,-</td>
             <td><?= $p['payment_status']; ?></td>
             <td>
                 <a href="index.php?route=payment/detail&id=<?= $p['payment_id']; ?>" class="btn btn-sm btn-primary">Lihat</a>

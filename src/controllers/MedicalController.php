@@ -25,8 +25,7 @@ class MedicalController {
             $date = date('Y-m-d');
             $admin = 50000;
             $trx = "MED-".rand(999,9999);
-            // echo $patient .' '.$doctor.' '.$type.' '.$service.' '.$complaints.' '.$user.' '.$date;
-            // return;
+            
             if (empty($patient) || empty($doctor) || empty($type) || empty($service)) {
                 echo "Harap isi semua kolom.";
                 return;

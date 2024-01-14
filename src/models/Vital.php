@@ -9,13 +9,13 @@ class Vital {
         $this->conn = $databaseConfig->getConnection();
     }
 
-    public function createVital($id, $temp, $presure, $weight, $status) {
+    public function createVital($id, $complaint, $temp, $presure, $weight, $status) {
         // $mm = "SELECT * from medical_services WHERE medical_id=$id";
         // $mmm = $this->conn->query($mm);
         // $m = $mmm->fetch_assoc();
         // $medical = $m['service_id'];
         $user = $_SESSION['user_id'];
-        $up = "UPDATE medical_services SET status='$status' WHERE medical_id=$id";
+        $up = "UPDATE medical_services SET complaints='$complaint', status='$status' WHERE medical_id=$id";
         $upp = $this->conn->query($up);
         $query = "INSERT INTO vital_sign (user_id, medical_id, blood_presure, temperature, weight) VALUES ('$user', '$id', '$presure', '$temp', '$weight')";
 
@@ -36,9 +36,10 @@ class Vital {
         return $vital;
     }
     public function getAllMedical() {
-        $query = "SELECT ms.medical_id, date, p.full_name patient,ms.complaints, d.full_name doctor, ms.status FROM medical_services ms 
+        $query = "SELECT ms.medical_id, date, p.full_name patient,ms.complaints, d.full_name doctor, ms.status 
+        FROM medical_services ms 
         JOIN patients p ON ms.patient_id=p.patient_id
-        JOIN doctors d ON ms.doctor_id=d.doctor_id WHERE ms.date < CURDATE() - INTERVAL 7 DAY";
+        JOIN doctors d ON ms.doctor_id=d.doctor_id WHERE ms.status = 'Pending'";
         $result = $this->conn->query($query);
         $vital = [];
 

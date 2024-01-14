@@ -23,7 +23,7 @@ class AuthController {
                 echo '<meta http-equiv="refresh" content="0;url=index.php?route=home"/>';
                 return true;
             } else {
-                echo 'Invalid username or password';
+                echo "<script>alert('Username atau password salah');</script><meta http-equiv='refresh' content='0;url=index.php?route=login'/>";
             }
             
         }

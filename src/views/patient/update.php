@@ -14,7 +14,7 @@ require "src/views/layouts/header.php";
                 <label for="alamat">Alamat:</label>
                 <input type="text" name="alamat" class="form-control" value="<?=$patient['address'];?>" required>
                 <label for="email">Nomor Rekam Medik:</label>
-                <input type="text" name="no_rm" class="form-control" value="<?=$patient['medical_number'];?>" required>
+                <input type="text" name="no_rm" class="form-control" value="<?=$patient['medical_number'];?>" readonly>
                 <label>Umur:</label>
                 <input type="text" name="umur" class="form-control" value="<?=$patient['age'];?>" required>
                 <label>Jenis Kelamin:</label>

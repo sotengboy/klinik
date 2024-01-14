@@ -15,9 +15,9 @@ require "src/views/layouts/header.php";
                 <th>Harga</th>
                 <th>Opsi</th>
             </tr>
-            <?php foreach ($medicine as $p): ?>
+            <?php $n = 1; foreach ($medicine as $p): ?>
             <tr>
-                <td><?= $p['med_id']; ?></td>
+                <td><?= $n++; ?></td>
                 <td><?= $p['med_name']; ?></td>
                 <td><?= $p['unit']; ?></td>
                 <td><?= $p['dosage']; ?></td>
@@ -25,7 +25,9 @@ require "src/views/layouts/header.php";
                 <td>
                     <div class="form-group">
                         <a href="index.php?route=medicine/update&id=<?= $p['med_id']; ?>" class="btn btn-sm btn-success mr-3">Ubah</a>
+                        <?php if($p['med_id'] != 0 || $p['status'] != 'Infinity'): ?>
                         <a href="index.php?route=medicine/delete&id=<?= $p['med_id']; ?>" onclick="return confirm('Yakin hapus data?');" class="btn btn-sm btn-danger">Hapus</a>
+                        <?php endif; ?>
                     </div>
                 </td>
             </tr>

@@ -34,32 +34,7 @@ class MedicineController {
         
         require 'src/views/medicine/create.php';
     }
-    public function register() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nama = $_POST['nama'];
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            $role = 1;
-            if (empty($nama) || empty($username) || empty($password)) {
-                echo "Harap isi semua kolom";
-                return;
-            }
-            $medicine = $this->medicineModel->getMedicineByMedicinename($username);
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            if (empty($medicine)) {
-                $this->medicineModel->createMedicine($nama, $username, $hashedPassword, $role);
-                $message = 'Berhasil mendaftarkan medicine dengan nama '.$nama;
-                echo "<script type='text/javascript'>alert('$message');</script>";
-                header('Location: index.php?route=login');
-                exit();
-            } else {
-                echo 'Medicine sudah pernah terdaftar';
-            }
-        }
 
-        
-        require_once 'src/views/register.php';
-    }
     public function read() {
         
         $medicine = $this->medicineModel->getAllMedicine();

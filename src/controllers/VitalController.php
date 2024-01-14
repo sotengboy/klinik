@@ -16,6 +16,7 @@ class VitalController {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
+            $complaint = $_POST['complaint'];
             $temp = $_POST['temperature'];
             $presure = $_POST['presure'];
             $weight = $_POST['weight'];
@@ -26,9 +27,8 @@ class VitalController {
                 return;
             }
 
-            $this->vitalModel->createVital($id, $temp, $presure, $weight, $status);
-
-            header('Location: index.php?route=vital');
+            $this->vitalModel->createVital($id, $complaint, $temp, $presure, $weight, $status);
+            echo "<script>alert('Data berhasil disimpan');</script><meta http-equiv='refresh' content='0;url=index.php?route=vital'/>";
             exit;
         }
 
